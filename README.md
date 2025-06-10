@@ -6,7 +6,7 @@
 
 [Dataset](https://github.com/IntelLabs/CGVQM) | [Paper](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
 
-<img src="media/teaser.png" width=35%>
+<img src="media/teaser.png">
 <br /><br />
 
 **CGVQM** is a *full-reference* video quality metric that predicts perceptual differences between pairs of videos.  
@@ -35,7 +35,7 @@ If you use the metric or the dataset in your research, please cite the paper abo
 ## Quickstart
 1. Obtain the CGVQM codebase, by cloning the repository:
 ```bash
-git clone git@github.com:IntelLabs/CGVQM.git   # skip if a .zip is provided or you use Github GUI
+git clone git@github.com:IntelLabs/cgvqm.git   # skip if a .zip is provided or you use Github GUI
 ```
 
 2. Install requirements (numpy, torch, and torchvision):
@@ -43,7 +43,6 @@ git clone git@github.com:IntelLabs/CGVQM.git   # skip if a .zip is provided or y
 pip install -r requirements.txt
 ```
 
-After installation, run `python cgvqm.py`. This script provides a demo usage of CGVQM by comparing 'media/Dock_dist.mp4' with 'media/Dock_ref.mp4':
+After installation, run `python cgvqm.py`. This script provides a demo usage of CGVQM by comparing 'media/Dock_dist.mp4' with 'media/Dock_ref.mp4'. Adjust the configuration in `demo_cgvqm()` function according to your use case.
 
-## Training
-Coming Soon...
+A sample training script is provided in `train.py` to calibrate the metric on datasets of your choice.

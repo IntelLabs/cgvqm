@@ -17,8 +17,6 @@ class CGVQM_TYPE(Enum):
 class CGVQM(resnet18.VideoResNet):
 
     def init_weights(self, weights_file=None, num_layers=6):
-            # if weights_file==None:
-            #     weights_file = 'weights.pickle'
             device = self.get_device()
             self.num_layers = num_layers
             self.chns = [3,64,64,128,256,512][:num_layers]
@@ -47,17 +45,8 @@ class CGVQM(resnet18.VideoResNet):
             diff = (w*((a - b)).pow(2).mean([2,3,4],keepdim=True)).sum()
             emap = (w*((a - b)).pow(2)).sum(1,keepdim=True)
             emap = torch.nn.functional.interpolate(emap,size=tuple(x.shape[2:]),mode='trilinear')
-            #print(diff.shape, anorm.mean(), bnorm.mean())
             cache = ((a - b)).pow(2).mean([2,3,4],keepdim=True) if cache_path!=None else None
 
-            return diff, emap, cache
-
-        def fdiff_new(a,b,w):
-            diff = (w*((a - b)).pow(2).mean([2,3,4],keepdim=True)).sum()
-            emap = (w*((a - b)).pow(2)).sum(1,keepdim=True)
-            emap = torch.nn.functional.interpolate(emap,size=tuple(x.shape[2:]),mode='trilinear')
-            #print(diff.shape, anorm.mean(), bnorm.mean())
-            cache = ((a - b)).pow(2).mean([2,3,4],keepdim=True) if cache_path!=None else None
             return diff, emap, cache
         
         feature_weights = torch.split(self.feature_weights.abs(), self.chns, dim=1)
@@ -116,7 +105,7 @@ class CGVQM(resnet18.VideoResNet):
         return self.alpha*diff, self.alpha*(emap)
 
 
-def run_cgvqm(test_vid_path, ref_vid_path, cgvqm_type = CGVQM_TYPE.CGVQM_2, device='cpu', patch_pool='max'):
+def run_cgvqm(test_vid_path, ref_vid_path, cgvqm_type = CGVQM_TYPE.CGVQM_2, device='cpu', patch_pool='max', patch_scale=4):
 
     # Load model
     model = resnet18.r3d_18(weights=resnet18.R3D_18_Weights.DEFAULT).to(device)
@@ -136,13 +125,11 @@ def run_cgvqm(test_vid_path, ref_vid_path, cgvqm_type = CGVQM_TYPE.CGVQM_2, devi
     R = preprocess(R).unsqueeze(0)
     
     # Divide video into patches and calculate quality of each patch
+    if D.shape[3]%patch_scale!=0 or D.shape[4]%patch_scale!=0:
+        print(f'WARNING: Spatial resolution not divisible by {patch_scale}. Error map resolution might not match input videos')
+    ps = [int(D.shape[3]/patch_scale),int(D.shape[4]/patch_scale)]
 
-
-    if D.shape[3]%4!=0 or D.shape[4]%4!=0:
-        print('WARNING: Spatial resolution not divisible by 4. Error map resolution might not match input videos')
-    ps = [int(D.shape[3]/4),int(D.shape[4]/4)]
-
-    clip_size = int(min(metadata['fps'],30))
+    clip_size = int(min(metadata['fps'],30)) # temporal duration of each patch
     # Pad videos in space-time to be divisible by patch size
     D = torch.nn.functional.pad(D, (0, (ps[1] - D.shape[4] % ps[1]) % ps[1], 0, (ps[0] - D.shape[3] % ps[0]) % ps[0], 0, (clip_size - D.shape[2] % clip_size)  % clip_size), mode='replicate')
     R = torch.nn.functional.pad(R, (0, (ps[1] - R.shape[4] % ps[1]) % ps[1], 0, (ps[0] - R.shape[3] % ps[0]) % ps[0], 0, (clip_size - R.shape[2] % clip_size)  % clip_size), mode='replicate')
@@ -183,12 +170,15 @@ def demo_cgvqm():
     errmap_path = os.path.join(dir_path,'media/Dock_dist_emap.mp4') # Path to save CGVQM predicted error map
     cgvqm_type = CGVQM_TYPE.CGVQM_2 # select between CGVQM_TYPE.CGVQM_2 or CGVQM_TYPE.CGVQM_5. (CGVQM_2 is faster and generates more granular error maps than CGVQM_5. However, it shows weaker correlation with human ratings)
     device = 'cuda'
+    patch_scale = 4 # FxHxW resolution video will be divided into smaller patches of resolution min(fps,30) x H/patch_scale x W/patch_scale. Increase this value if low on available GPU memory
+    patch_pool='mean' # How to pool quality values from across all patches (choose from {'max', 'mean'})
 
     # Run CGVQM and visualize results
-    q, emap = run_cgvqm(dist_vid_path, ref_vid_path, cgvqm_type = cgvqm_type, device=device)
+    q, emap = run_cgvqm(dist_vid_path, ref_vid_path, cgvqm_type = cgvqm_type, device=device, patch_pool=patch_pool, patch_scale=patch_scale)
     qlabels = ['very annoying', 'annoying', 'slightly annoying', 'perceptible but not annoying', 'imperceptible']
     print(f'Quality of Dock_dist is {q.item():.2f}/100 ({qlabels[int(np.round(q.item()/25))]}). Quality map written to media/Dock_dist_emap.mp4')
     visualize_emap(emap, dist_vid_path, 100, errmap_path)
+
 
 if __name__ == "__main__":
     demo_cgvqm()
