@@ -160,7 +160,7 @@ def train_resnet_mdt(cache_dir_list, num_layers=6, DEVICE='cuda'):
 # Main
 # ==========================================
 if __name__ == "__main__":
-    datasets = ['C:/Users/akshayji/Projects/data/cgvqd']
+    datasets = ['path/to/cgvqd']
     cache_dir_list = []
 
     for dataset in datasets:
