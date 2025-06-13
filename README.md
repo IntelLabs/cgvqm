@@ -28,7 +28,7 @@ More details on the metric and dataset can be found in:
 > CGVQM+D: Computer Graphics Video Quality Metric and Dataset.\
 > A. Jindal, N. Sadaka, M. M. Thomas, A. Sochenov and A. Kaplanyan.\
 > COMPUTER GRAPHICS forum, Volume 44 (2025), Number 8\
-> https://doi.org/xxx/xxx
+> https://doi.org/10.1111/cgf.70221
 
 If you use the metric or the dataset in your research, please cite the paper above. 
 
@@ -38,11 +38,11 @@ If you use the metric or the dataset in your research, please cite the paper abo
 git clone git@github.com:IntelLabs/cgvqm.git   # skip if a .zip is provided or you use Github GUI
 ```
 
-2. Install requirements (numpy, torch, and torchvision):
+2. Begin by installing the appropriate version of PyTorch (with CUDA support if available) using <a href="https://pytorch.org/get-started/locally/">os-specific instructions</a>. Install other requirements:
 ```bash
-pip install -r requirements.txt
+pip install numpy scipy
 ```
 
-After installation, run `python cgvqm.py`. This script provides a demo usage of CGVQM by comparing 'media/Dock_dist.mp4' with 'media/Dock_ref.mp4'. Adjust the configuration in `demo_cgvqm()` function according to your use case.
+3. After installation, run `python cgvqm.py`. This script provides a demo usage of CGVQM by comparing <i>'media/Dock_dist.mp4'</i> with <i>'media/Dock_ref.mp4'</i>. Adjust the configuration in `demo_cgvqm()` function according to your use case.
 
-A sample training script is provided in `train.py` to calibrate the metric on datasets of your choice.
+4. A sample training script is provided in `train.py` to calibrate the metric on datasets of your choice.
