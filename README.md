@@ -4,7 +4,7 @@
 [![pytorch](https://img.shields.io/badge/PyTorch-v2.4.1-green?logo=pytorch)](https://pytorch.org/get-started/locally/)
 ![python-support](https://img.shields.io/badge/Python-3.10-3?logo=python)
 
-[Dataset](https://github.com/IntelLabs/CGVQM) | [Paper](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
+[Paper](http://arxiv.org/abs/2506.11546) | [Dataset](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
 
 <img src="media/teaser.png">
 <br /><br />
@@ -40,7 +40,7 @@ git clone git@github.com:IntelLabs/cgvqm.git   # skip if a .zip is provided or y
 
 2. Begin by installing the appropriate version of PyTorch (with CUDA support if available) using <a href="https://pytorch.org/get-started/locally/">os-specific instructions</a>. Install other requirements:
 ```bash
-pip install numpy scipy
+pip install numpy scipy av
 ```
 
 3. After installation, run `python cgvqm.py`. This script provides a demo usage of CGVQM by comparing <i>'media/Dock_dist.mp4'</i> with <i>'media/Dock_ref.mp4'</i>. Adjust the configuration in `demo_cgvqm()` function according to your use case.

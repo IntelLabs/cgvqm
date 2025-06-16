@@ -22,8 +22,8 @@ def preprocess(vid):
     return vid
 
 def load_resize_vids(test_vid_path, ref_vid_path):
-    D, _, metadata_D = read_video(test_vid_path, output_format="TCHW")
-    R, _, metadata_R = read_video(ref_vid_path, output_format="TCHW")
+    D, _, metadata_D = read_video(test_vid_path, output_format="TCHW",pts_unit='sec')
+    R, _, metadata_R = read_video(ref_vid_path, output_format="TCHW",pts_unit='sec')
     T,C,H,W = R.shape
 
     if D.shape[2:]!= R.shape[2:]:
@@ -40,7 +40,7 @@ def load_resize_vids(test_vid_path, ref_vid_path):
 def visualize_emap(emap, test_vid_path, scaling_factor, out_path):
     #normalize emap
     emap = torch.clamp(emap/scaling_factor,0,1)
-    D, _, metadata_D = read_video(test_vid_path, output_format="TCHW")
+    D, _, metadata_D = read_video(test_vid_path, output_format="TCHW",pts_unit='sec')
     fps = Fraction(metadata_D['video_fps'])
     if emap.shape[1:]!=D.shape[2:]:
         emap = interpolate(emap.unsqueeze(0),size=(D.shape[2],D.shape[3]),mode='bilinear').squeeze()

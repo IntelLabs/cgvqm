@@ -2,3 +2,4 @@ numpy==2.3.0
 pandas==2.3.0
 torch==2.7.1+cu128
 torchvision==0.22.1+cu128
+av==14.4.0
