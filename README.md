@@ -4,7 +4,7 @@
 [![pytorch](https://img.shields.io/badge/PyTorch-v2.4.1-green?logo=pytorch)](https://pytorch.org/get-started/locally/)
 ![python-support](https://img.shields.io/badge/Python-3.10-3?logo=python)
 
-[Paper](http://arxiv.org/abs/2506.11546) | [Dataset](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
+[Paper](http://arxiv.org/abs/2506.11546) | [Blog](https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Assessing-Video-Quality-in-Real-time-Computer-Graphics/post/1694109) | [Dataset](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
 
 <img src="media/teaser.png">
 <br /><br />
@@ -23,12 +23,19 @@ What sets CGVQM apart is that it is the first metric **calibrated for distortion
 
 CGVQM is implemented in **PyTorch**, optimized for **CUDA GPUs** (CPU also supported). See below for installation and usage instructions.
 
-More details on the metric and dataset can be found in:
+More details on the metric and dataset can be found in our paper:
 
-> CGVQM+D: Computer Graphics Video Quality Metric and Dataset.\
-> A. Jindal, N. Sadaka, M. M. Thomas, A. Sochenov and A. Kaplanyan.\
-> COMPUTER GRAPHICS forum, Volume 44 (2025), Number 8\
-> https://doi.org/10.1111/cgf.70221
+```
+@article{10.1111:cgf.70221,
+journal = {Computer Graphics Forum},
+title = {{CGVQM+D: Computer Graphics Video Quality Metric and Dataset}},
+author = {Jindal, Akshay and Sadaka, Nabil and Thomas, Manu Mathew and Sochenov, Anton and Kaplanyan, Anton},
+year = {2025},
+publisher = {The Eurographics Association and John Wiley & Sons Ltd.},
+ISSN = {1467-8659},
+DOI = {10.1111/cgf.70221}
+}
+```
 
 If you use the metric or the dataset in your research, please cite the paper above. 
 
