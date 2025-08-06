@@ -4,7 +4,7 @@
 [![pytorch](https://img.shields.io/badge/PyTorch-v2.4.1-green?logo=pytorch)](https://pytorch.org/get-started/locally/)
 ![python-support](https://img.shields.io/badge/Python-3.10-3?logo=python)
 
-[Paper](http://arxiv.org/abs/2506.11546) | [Blog](https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Assessing-Video-Quality-in-Real-time-Computer-Graphics/post/1694109) | [Dataset](https://github.com/IntelLabs/CGVQM) (Coming Soon...)
+[Paper](http://arxiv.org/abs/2506.11546) | [Blog](https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Assessing-Video-Quality-in-Real-time-Computer-Graphics/post/1694109) | [Dataset](https://github.com/IntelLabs/cgvqm/releases/tag/cgvqd_v0.1.0)
 
 <img src="media/teaser.png">
 <br /><br />
@@ -16,7 +16,7 @@ What sets CGVQM apart is that it is the first metric **calibrated for distortion
 
 ### Features
 
-- 📊 **Calibrated** on our [**CGVQD** dataset](https://github.com/IntelLabs/CGVQM), capturing complex artifacts from modern computer graphics.
+- 📊 **Calibrated** on our [**CGVQD** dataset](https://github.com/IntelLabs/cgvqm/releases/tag/cgvqd_v0.1.0), capturing complex artifacts from modern computer graphics.
 - 🎚️ Outputs on an **interpretable perceptual scale** (e.g. *imperceptible* → *annoying*).
 - 🗺️ Provides **error maps** to visualize *where* and *why* errors occur — not just a single score.
 - 🖼️ Robust across a wide variety of content: from **stylized fantasy** to **photorealistic open worlds**, and across many rendering techniques.
