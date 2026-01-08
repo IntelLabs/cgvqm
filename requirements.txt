@@ -1,5 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
+
 numpy==2.3.0
 pandas==2.3.0
-torch==2.7.1+cu128
-torchvision==0.22.1+cu128
+torch==2.8.0
+torchvision==0.23.0
 av==14.4.0
