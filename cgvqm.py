@@ -116,7 +116,7 @@ def run_cgvqm(test_vid_path, ref_vid_path, cgvqm_type = CGVQM_TYPE.CGVQM_2, devi
     elif cgvqm_type==CGVQM_TYPE.CGVQM_5:
         model.init_weights(os.path.join(dir_path,'weights','cgvqm-5.pickle'),num_layers=6)
     else:
-        raise Exception("ERROR: unkown model type")
+        raise Exception("ERROR: unknown model type")
     model.eval()
 
     # Load, resize, and normalize videos
@@ -155,7 +155,7 @@ def run_cgvqm(test_vid_path, ref_vid_path, cgvqm_type = CGVQM_TYPE.CGVQM_2, devi
     elif  patch_pool=='mean':
         q = 100 - torch.mean(torch.stack(patch_errors))
     else:
-        raise Exception("ERROR: unkown patch pooling method")
+        raise Exception("ERROR: unknown patch pooling method")
 
     return q, emap
 
