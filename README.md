@@ -1,7 +1,7 @@
 # CGVQM: Computer Graphics Video Quality Metric
 [![GitHub License](https://img.shields.io/github/license/IntelLabs/cgvqm)](https://github.com/IntelLabs/cgvqm/code/main/LICENSE)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/IntelLabs/cgvqm/badge)](https://scorecard.dev/viewer/?uri=github.com/IntelLabs/cgvqm)
-[![pytorch](https://img.shields.io/badge/PyTorch-v2.12.0-green?logo=pytorch)](https://pytorch.org/get-started/locally/)
+[![pytorch](https://img.shields.io/badge/PyTorch-v2.13.0-green?logo=pytorch)](https://pytorch.org/get-started/locally/)
 ![python-support](https://img.shields.io/badge/Python-3.11-3?logo=python)
 
 [Paper](http://arxiv.org/abs/2506.11546) | [Blog](https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Assessing-Video-Quality-in-Real-time-Computer-Graphics/post/1694109) | [Dataset](https://github.com/IntelLabs/cgvqm/releases/tag/cgvqd_v0.1.0)
