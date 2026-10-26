@@ -1,8 +1,40 @@
 import torch
+import numpy as np
+import av
 import torchvision.transforms.functional as F
-from torchvision.io.video import read_video, write_video
 from torch.nn.functional import interpolate
 from fractions import Fraction
+
+
+def read_video(filename, output_format="TCHW", pts_unit="sec"):
+    # Minimal PyAV replacement for the removed torchvision.io.video.read_video.
+    with av.open(filename) as container:
+        stream = container.streams.video[0]
+        frames = [frame.to_ndarray(format="rgb24") for frame in container.decode(stream)]
+        rate = stream.average_rate or stream.base_rate
+    vid = torch.from_numpy(np.stack(frames))  # (T, H, W, C), uint8
+    if output_format == "TCHW":
+        vid = vid.permute(0, 3, 1, 2).contiguous()
+    return vid, torch.empty(0), {"video_fps": float(rate)}
+
+
+def write_video(filename, video_array, fps, video_codec="libx264", options=None):
+    # Minimal PyAV replacement for the removed torchvision.io.video.write_video.
+    if isinstance(video_array, torch.Tensor):
+        video_array = video_array.numpy()
+    video_array = np.ascontiguousarray(video_array)  # (T, H, W, C), uint8
+    with av.open(filename, mode="w") as container:
+        stream = container.add_stream(video_codec, rate=fps)
+        stream.width = video_array.shape[2]
+        stream.height = video_array.shape[1]
+        stream.pix_fmt = "yuv420p"
+        stream.options = options or {}
+        for frame_array in video_array:
+            frame = av.VideoFrame.from_ndarray(frame_array, format="rgb24")
+            for packet in stream.encode(frame):
+                container.mux(packet)
+        for packet in stream.encode():
+            container.mux(packet)
 
 def preprocess(vid):
     need_squeeze = False
