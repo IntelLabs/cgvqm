@@ -35,3 +35,6 @@ dist/
 ipas_default.config
 trivy_report.txt
 bandit_report.txt
+cgvqm.spdx
+trivy_report.json
+CGVQM.spdx.json
