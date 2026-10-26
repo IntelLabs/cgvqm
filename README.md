@@ -1,13 +1,3 @@
-> [!WARNING]
-> **THIS PROJECT IS ARCHIVED**  
-> Intel will not provide or guarantee development of or support for this project,
-> including but not limited to, maintenance, bug fixes, new releases or updates.
->
-> Patches to this project are no longer accepted by Intel.  
-
-> [!CAUTION]
-> This project has been identified as having known security issues. 
-
 # CGVQM: Computer Graphics Video Quality Metric
 [![GitHub License](https://img.shields.io/github/license/IntelLabs/cgvqm)](https://github.com/IntelLabs/cgvqm/code/main/LICENSE)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/IntelLabs/cgvqm/badge)](https://scorecard.dev/viewer/?uri=github.com/IntelLabs/cgvqm)
